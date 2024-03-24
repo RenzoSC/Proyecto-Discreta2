@@ -11,4 +11,14 @@ struct vertice_st{
 
 typedef struct vertice_st * vertice;
 
+vertice create_vertice();
+
+vertice destroy_vertice(vertice v);
+
+u32 grado_verdice(vertice v);
+
+u32 color_vertice(vertice v);
+
+
+
 #endif
