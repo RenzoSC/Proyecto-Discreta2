@@ -7,7 +7,7 @@ typedef unsigned int color;
 
 typedef unsigned int u32;
 
-typedef struct GrafoSt {
+typedef struct Grafo_St {
     u32 num_vertices;
     u32 num_lados;
     u32 delta;

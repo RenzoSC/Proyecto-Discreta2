@@ -6,15 +6,15 @@
 #include <stdint.h>
 #include "EstructuraGrafo24.h"
 
-typedef struct GrafoST *Grafo;
+typedef struct Grafo_St *Grafo;
 
 typedef unsigned int color;
 
 typedef unsigned int u32;
 
-GrafoSt construir_grafo();
+Grafo construir_grafo();
 
-void destruir_grafo();
+void destruir_grafo(Grafo G);
 
 //extraer información del grafo
 
@@ -26,18 +26,18 @@ u32 Delta(Grafo G);
 
 // Extraer informacion de los vertices
 
-u32 grado_v(u32 grado, GrafoSt g);
+u32 grado_v(u32 grado, Grafo g);
 
-u32 color_v(color col, GrafoSt g);
+u32 color_v(color col, Grafo g);
 
-u32 vecino_v(u32 j, u32 i, GrafoSt g);
+u32 vecino_v(u32 j, u32 i, Grafo g);
 
 // Asignar colores
 
-u32 asignar_color_v(color* c, u32 i, GrafoSt g);
+void asignar_color_v(color* c, u32 i, Grafo g);
 
-u32 extraer_color_v(GrafoSt g, color* col);
+void extraer_color_v(Grafo g, color* col);
 
-void importar_colores(color c,GrafoSt g);
+void importar_colores(color c,Grafo g);
 
 #endif
