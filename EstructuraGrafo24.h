@@ -2,14 +2,16 @@
 #define _ESTRUCTURAGRAFO24_H
 
 #include "list.h"
+#include "vertice.h"
+typedef unsigned int color;
 
 typedef unsigned int u32;
 
 typedef struct GrafoSt {
-    u32 vertices;
-    u32 lados;
+    u32 num_vertices;
+    u32 num_lados;
     u32 delta;
-    list vecinos;
+    vertice * list_vertice;
 } GrafoSt;
 
 #endif
