@@ -7,27 +7,18 @@
 struct list_st{
     vertice * elems;
     u32 len;
-    u32 maxlen;
 };
 
-list empty(){
+list empty(u32 n_elem){
     list l = malloc(sizeof(struct list_st));
-    l->elems = NULL;
+    l->elems = malloc(sizeof(vertice)*n_elem);
     l->len = 0;
-    l->maxlen =0;
     assert(l!=NULL);
     return l;
 }
 
 list add_elemnt(vertice elem, list lista){
     assert(lista != NULL);
-    assert(lista->maxlen>=lista->len);
-
-    if(lista->maxlen == lista->len){
-        size_t new_maxlen = lista->maxlen == 0 ? 1 : 2*lista->len;
-        lista->elems = realloc(lista->elems, new_maxlen*(sizeof(vertice)));
-        lista->maxlen = new_maxlen;
-    }
     (lista->elems)[lista->len]= elem;
     lista->len++;
     return lista;
@@ -90,7 +81,6 @@ list destroy(list lista){
     }
     free(lista->elems);
     lista->len=0;
-    lista->maxlen=0;
     free(lista);
     lista =NULL;
 
