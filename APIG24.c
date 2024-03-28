@@ -5,6 +5,15 @@
 #include <assert.h>
 
 
+void destruir_grafo(Grafo G){
+    assert(G!=NULL);
+    free(G->list_vertice);
+    free(G->delta);
+    free(G->num_lados);
+    free(G->num_vertices);
+    free(G);
+}
+
 //extraer información del grafo
 
 u32 NumeroDeVertices(Grafo G){
@@ -25,6 +34,7 @@ u32 Delta(Grafo G){
 // Extraer informacion de los vertices
 
 u32 grado_v(u32 i, Grafo G){
+    assert(G!=NULL);
     if (i >= G->num_vertices){
         return 0;
     }else{
@@ -33,6 +43,7 @@ u32 grado_v(u32 i, Grafo G){
 }
 
 u32 color_v(u32 i, Grafo G){
+    assert(G!=NULL);
     if (i >= G->num_vertices){
         return UINT32_MAX;
     }else{
@@ -41,6 +52,7 @@ u32 color_v(u32 i, Grafo G){
 }
 
 u32 vecino_v(u32 j, u32 i, Grafo G){
+    assert(G!=NULL);
     if ((i>=NumeroDeVertices(G)) || (i<=NumeroDeVertices(G) && j>=grado_v(i,G)))
     {
         return UINT32_MAX;
@@ -51,6 +63,7 @@ u32 vecino_v(u32 j, u32 i, Grafo G){
 // Asignar colores
 
 void asignar_color_v(color* c, u32 i, Grafo G){
+    assert(G!=NULL);
     if (i<NumeroDeVertices(G))
     {
         G->list_vertice[i]->col = c;
@@ -58,6 +71,7 @@ void asignar_color_v(color* c, u32 i, Grafo G){
 }
 
 void extraer_color_v(Grafo G, color* col){
+    assert(G!=NULL);
     for (u32 i = 0; i < G->num_vertices; i++) {
         // Asignamos el color del vértice i al arreglo Color
         col[i] = G->list_vertice[i]->col;
@@ -65,6 +79,7 @@ void extraer_color_v(Grafo G, color* col){
 }
 
 void importar_colores(color* col,Grafo G){
+    assert(G!=NULL);
     // Iteramos sobre cada vértice del grafo
     for (u32 i = 0; i < G->num_vertices; i++) {
         // Asignamos el color del vértice i al color almacenado en el arreglo Color
