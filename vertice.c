@@ -28,17 +28,15 @@ u32 get_color_vertice(vertice v){
     return v->col;
 }
 
-vertice set_color(vertice v, color colorv){
+void set_color(vertice v, color colorv){
     assert(v!=NULL);
     v->col = colorv;
-    return v;
 }
 
 
-vertice set_grado(vertice v, u32 new_grado){
+void add_grado(vertice v){
     assert(v!=NULL);
-    v->grado = new_grado;
-    return v;
+    v->grado ++;
 }
 
 
