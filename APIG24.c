@@ -1,12 +1,14 @@
-
-#include "APIG24.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <assert.h>
 
 #include "EstructuraGrafo24.h"
+#include "APIG24.h"
 
 #define MAXLINE 1024
+
+//Construccion de grafos
 
 Grafo construir_grafo(){
     Grafo grafo = (Grafo)malloc(sizeof(struct Grafo_St));
@@ -101,4 +103,85 @@ Grafo construir_grafo(){
     }
     free(is_already);
     return grafo;
+}
+
+void destruir_grafo(Grafo G){
+    assert(G!=NULL);
+    free(G->list_vertice);
+    free(G->delta);
+    free(G->num_lados);
+    free(G->num_vertices);
+    free(G);
+}
+
+// Extraer información del grafo
+
+u32 NumeroDeVertices(Grafo G){
+    assert(G != NULL);
+    return G->num_vertices;
+}
+
+u32 NumeroDeLados(Grafo G){
+    assert(G != NULL);
+    return G->num_lados;
+}
+
+u32 Delta(Grafo G){
+    assert(G != NULL);
+    return G->delta;
+}
+
+// Extraer informacion de los vertices
+
+u32 grado_v(u32 i, Grafo G){
+    assert(G!=NULL);
+    if (i >= G->num_vertices){
+        return 0;
+    }else{
+        return G->list_vertice[i]->grado;
+    }
+}
+
+u32 color_v(u32 i, Grafo G){
+    assert(G!=NULL);
+    if (i >= G->num_vertices){
+        return UINT32_MAX;
+    }else{
+        return G->list_vertice[i]->col;
+    }
+}
+
+u32 vecino_v(u32 j, u32 i, Grafo G){
+    assert(G!=NULL);
+    if ((i>=NumeroDeVertices(G)) || (i<=NumeroDeVertices(G) && j>=grado_v(i,G)))
+    {
+        return UINT32_MAX;
+    }else if (j >= grado_v(i,G)) {
+        return UINT32_MAX;
+    }
+    return G->list_vecinos[i-1 + j-1];
+}
+
+// Asignar colores
+
+void asignar_color_v(color* c, u32 i, Grafo G){
+    assert(G!=NULL);
+    if (i<NumeroDeVertices(G))
+    {
+        G->list_vertice[i-1]->col = c;
+    }
+}
+
+void extraer_color_v(Grafo G, color* col){
+    assert(G!=NULL);
+    for (u32 i = 0; i < G->num_vertices; i++) {
+        col[i] = G->list_vertice[i]->col;
+    }
+}
+
+void importar_colores(color* col,Grafo G){
+    assert(G!=NULL);
+    for (u32 i = 0; i < G->num_vertices; i++) {
+        G->list_vertice[i]->col = col[i];
+    }
 }
