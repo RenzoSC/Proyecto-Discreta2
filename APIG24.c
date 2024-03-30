@@ -107,11 +107,15 @@ Grafo construir_grafo(){
 
 void destruir_grafo(Grafo G){
     assert(G!=NULL);
+    for (size_t i = 0; i < G->num_vertices; i++)
+    {
+        destroy_vertice(G->list_vertice[i]);
+    }
     free(G->list_vertice);
-    free(G->delta);
-    free(G->num_lados);
-    free(G->num_vertices);
+    free(G->list_vecinos);
     free(G);
+    G = NULL;
+    assert(G==NULL);
 }
 
 // Extraer información del grafo
@@ -138,7 +142,7 @@ u32 grado_v(u32 i, Grafo G){
     if (i >= G->num_vertices){
         return 0;
     }else{
-        return G->list_vertice[i]->grado;
+        return G->list_vertice[i-1]->grado;
     }
 }
 
@@ -147,16 +151,14 @@ u32 color_v(u32 i, Grafo G){
     if (i >= G->num_vertices){
         return UINT32_MAX;
     }else{
-        return G->list_vertice[i]->col;
+        return G->list_vertice[i-1]->col;
     }
 }
 
 u32 vecino_v(u32 j, u32 i, Grafo G){
     assert(G!=NULL);
-    if ((i>=NumeroDeVertices(G)) || (i<=NumeroDeVertices(G) && j>=grado_v(i,G)))
+    if ((i>=NumeroDeVertices(G)) || (i<=NumeroDeVertices(G) && j>=grado_v(i,G)) || j >= grado_v(i,G))
     {
-        return UINT32_MAX;
-    }else if (j >= grado_v(i,G)) {
         return UINT32_MAX;
     }
     return G->list_vecinos[i-1 + j-1];
@@ -168,7 +170,7 @@ void asignar_color_v(color* c, u32 i, Grafo G){
     assert(G!=NULL);
     if (i<NumeroDeVertices(G))
     {
-        G->list_vertice[i-1]->col = c;
+        set_color(G->list_vertice[i-1], c);
     }
 }
 
