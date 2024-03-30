@@ -2,7 +2,6 @@
 #include <assert.h>
 
 #include "vertice.h"
-#include "list.h"
 
 vertice create_vertice(u32 id){
     vertice v = malloc(sizeof(vertice));

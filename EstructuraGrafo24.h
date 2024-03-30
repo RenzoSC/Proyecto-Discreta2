@@ -2,7 +2,6 @@
 #ifndef _ESTRUCTURAGRAFO24_H
 #define _ESTRUCTURAGRAFO24_H
 
-#include "list.h"
 #include "vertice.h"
 
 typedef unsigned int u32;
