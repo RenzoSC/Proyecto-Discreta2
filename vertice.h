@@ -27,7 +27,7 @@ u32 get_color_vertice(vertice v);
 
 vertice set_color(vertice v, color colorv);
 
-vertice set_grado(vertice v, u32 new_grado);
+vertice add_grado(vertice v);
 
 /*DESTRUCTOR*/
 vertice destroy_vertice(vertice v);
