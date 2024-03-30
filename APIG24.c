@@ -156,30 +156,32 @@ u32 vecino_v(u32 j, u32 i, Grafo G){
     if ((i>=NumeroDeVertices(G)) || (i<=NumeroDeVertices(G) && j>=grado_v(i,G)))
     {
         return UINT32_MAX;
+    }else if (j >= grado_v(i,G)) {
+        return UINT32_MAX;
     }
-    
+    return G->list_vecinos[i-1 + j-1];
 }
 
 // Asignar colores
 
 void asignar_color_v(color* c, u32 i, Grafo G){
     assert(G!=NULL);
-
+    if (i<NumeroDeVertices(G))
+    {
+        G->list_vertice[i-1]->col = c;
+    }
 }
 
 void extraer_color_v(Grafo G, color* col){
     assert(G!=NULL);
     for (u32 i = 0; i < G->num_vertices; i++) {
-        // Asignamos el color del vértice i al arreglo Color
         col[i] = G->list_vertice[i]->col;
     }
 }
 
 void importar_colores(color* col,Grafo G){
     assert(G!=NULL);
-    // Iteramos sobre cada vértice del grafo
     for (u32 i = 0; i < G->num_vertices; i++) {
-        // Asignamos el color del vértice i al color almacenado en el arreglo Color
         G->list_vertice[i]->col = col[i];
     }
 }
