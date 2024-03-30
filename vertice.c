@@ -4,7 +4,7 @@
 #include "vertice.h"
 
 vertice create_vertice(u32 id){
-    vertice v = malloc(sizeof(vertice));
+    vertice v = malloc(sizeof(struct vertice_st));
     v->col = 0;
     v->id = id;
     v->grado = 0;

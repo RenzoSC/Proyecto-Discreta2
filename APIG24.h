@@ -37,7 +37,7 @@ u32 vecino_v(u32 j, u32 i, Grafo g);
 
 // Asignar colores
 
-void asignar_color_v(color* c, u32 i, Grafo g);
+void asignar_color_v(color c, u32 i, Grafo g);
 
 void extraer_color_v(Grafo g, color* col);
 

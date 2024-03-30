@@ -15,9 +15,8 @@ Grafo construir_grafo(){
     if (grafo == NULL) return NULL;
     
     u32 m,n;
-    bool error = false;
+    //bool error = false;
     char car[MAXLINE];
-    bool* is_already;
     while (fgets(car, MAXLINE, stdin ))
     {
         if (car[0] == 'c') continue;
@@ -29,7 +28,7 @@ Grafo construir_grafo(){
         }else if (car[0] == 'p')
         {
             int ret = sscanf(car, "p edge %u %u\n",&n,&m);
-            if (ret <=2)
+            if (ret <2)
             {
                 printf("Hubo un error al leer el numero de vertices y  lados %i", ret);
                 exit(-1);
@@ -38,12 +37,11 @@ Grafo construir_grafo(){
             grafo->num_vertices = n;
             grafo->num_lados = m;
             grafo->list_vertice = malloc(sizeof(vertice)*n);
-            is_already = malloc(sizeof(bool)*n);
             grafo->list_vecinos = malloc(sizeof(u32)*m*2);
             break;
         }
     }
-
+    bool* is_already = malloc(sizeof(bool)*grafo->num_vertices);
     for (size_t i = 0; i < grafo->num_vertices; i++)
     {
         is_already[i]= false;     //acordar de destruir el array
@@ -65,33 +63,33 @@ Grafo construir_grafo(){
         {   
             u32 vert1,vert2;
             int r = sscanf(car,"e %u %u", &vert1,&vert2);
-            if (r<=2)
+            if (r<2)
             {
-                printf("No se pasaron 2 vertices como correspondería");
+                printf("No se pasaron 2 vertices como correspondería: %i\n",r);
                 exit(-1);
             }
 
-            if (is_already[vert1-1]==false)
+            if (is_already[vert1]==false)
             {
                 vertice vertice1= create_vertice(vert1);
-                grafo->list_vertice[vert1-1]= vertice1;
-                is_already[vert1-1]=true;
+                grafo->list_vertice[vert1]= vertice1;
+                is_already[vert1]=true;
             }
             
-            if (is_already[vert2-1]==false)
+            if (is_already[vert2]==false)
             {
                 vertice vertice2= create_vertice(vert2);
-                grafo->list_vertice[vert2-1]= vertice2;
-                is_already[vert2-1]= true;
+                grafo->list_vertice[vert2]= vertice2;
+                is_already[vert2]= true;
             }
             
-            add_grado(grafo->list_vertice[vert1-1]);
-            add_grado(grafo->list_vertice[vert2-1]);
-            grafo->list_vecinos[vert1-1]= vert2;
-            grafo->list_vecinos[vert2-1]= vert1;
-            
-            vertice v1 = grafo->list_vertice[vert1-1];
-            vertice v2 = grafo->list_vertice[vert2-1];
+            add_grado(grafo->list_vertice[vert1]);
+            add_grado(grafo->list_vertice[vert2]);
+            grafo->list_vecinos[vert1]= vert2;
+            grafo->list_vecinos[vert2]= vert1;
+            //printf("Agregué al vertice %i y al %i\n", vert2,vert1);
+            vertice v1 = grafo->list_vertice[vert1];
+            vertice v2 = grafo->list_vertice[vert2];
             if (grafo->delta < v1->grado || grafo->delta < v2->grado)
             {
                 grafo->delta = v1->grado <= v2->grado ? v2->grado : v1->grado;
@@ -142,7 +140,7 @@ u32 grado_v(u32 i, Grafo G){
     if (i >= G->num_vertices){
         return 0;
     }else{
-        return G->list_vertice[i-1]->grado;
+        return G->list_vertice[i]->grado;
     }
 }
 
@@ -151,7 +149,7 @@ u32 color_v(u32 i, Grafo G){
     if (i >= G->num_vertices){
         return UINT32_MAX;
     }else{
-        return G->list_vertice[i-1]->col;
+        return G->list_vertice[i]->col;
     }
 }
 
@@ -161,16 +159,16 @@ u32 vecino_v(u32 j, u32 i, Grafo G){
     {
         return UINT32_MAX;
     }
-    return G->list_vecinos[i-1 + j-1];
+    return G->list_vecinos[i + j];
 }
 
 // Asignar colores
 
-void asignar_color_v(color* c, u32 i, Grafo G){
+void asignar_color_v(color c, u32 i, Grafo G){
     assert(G!=NULL);
     if (i<NumeroDeVertices(G))
     {
-        set_color(G->list_vertice[i-1], c);
+        set_color(G->list_vertice[i], c);
     }
 }
 
