@@ -13,7 +13,7 @@
 Grafo construir_grafo(){
     Grafo grafo = (Grafo)malloc(sizeof(struct Grafo_St));
     if (grafo == NULL) return NULL;
-    
+    grafo->delta = 0;
     u32 m,n;
     //bool error = false;
     char car[MAXLINE];
@@ -37,7 +37,6 @@ Grafo construir_grafo(){
             grafo->num_vertices = n;
             grafo->num_lados = m;
             grafo->list_vertice = malloc(sizeof(vertice)*n);
-            grafo->list_vecinos = malloc(sizeof(u32)*m*2);
             break;
         }
     }
@@ -83,16 +82,17 @@ Grafo construir_grafo(){
                 is_already[vert2]= true;
             }
             
-            add_grado(grafo->list_vertice[vert1]);
-            add_grado(grafo->list_vertice[vert2]);
-            grafo->list_vecinos[vert1]= vert2;
-            grafo->list_vecinos[vert2]= vert1;
+            add_vecino(grafo->list_vertice[vert1], vert2);
+
+            add_vecino(grafo->list_vertice[vert2], vert1);
+            
             //printf("Agregué al vertice %i y al %i\n", vert2,vert1);
-            vertice v1 = grafo->list_vertice[vert1];
-            vertice v2 = grafo->list_vertice[vert2];
-            if (grafo->delta < v1->grado || grafo->delta < v2->grado)
+
+            u32 gradov1= get_grado_vertice(grafo->list_vertice[vert1]);
+            u32 gradov2= get_grado_vertice(grafo->list_vertice[vert2]);
+            if (grafo->delta < gradov1|| grafo->delta < gradov2)
             {
-                grafo->delta = v1->grado <= v2->grado ? v2->grado : v1->grado;
+                grafo->delta = gradov1 <= gradov2 ? gradov2 : gradov1;
             }
             
         }else{
@@ -110,7 +110,6 @@ void destruir_grafo(Grafo G){
         destroy_vertice(G->list_vertice[i]);
     }
     free(G->list_vertice);
-    free(G->list_vecinos);
     free(G);
     G = NULL;
     assert(G==NULL);
@@ -140,7 +139,7 @@ u32 grado_v(u32 i, Grafo G){
     if (i >= G->num_vertices){
         return 0;
     }else{
-        return G->list_vertice[i]->grado;
+        return get_grado_vertice(G->list_vertice[i]);
     }
 }
 
@@ -159,7 +158,7 @@ u32 vecino_v(u32 j, u32 i, Grafo G){
     {
         return UINT32_MAX;
     }
-    return G->list_vecinos[i + j];
+    return get_vecino_index(G->list_vertice[i], j);
 }
 
 // Asignar colores
@@ -182,6 +181,6 @@ void extraer_color_v(Grafo G, color* col){
 void importar_colores(color* col,Grafo G){
     assert(G!=NULL);
     for (u32 i = 0; i < G->num_vertices; i++) {
-        G->list_vertice[i]->col = col[i];
+        asignar_color_v(col[i], i, G);
     }
 }

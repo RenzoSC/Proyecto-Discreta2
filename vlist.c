@@ -3,7 +3,7 @@
 #include "vertice.h"
 #include <stdlib.h>
 #include <assert.h>
-
+#include <stdio.h>
 struct vNode{
     u32 id_vert;
     struct vNode *next;
@@ -61,9 +61,10 @@ u32 list_index(list lista, u32 index){
     assert(lista->len >=index && lista->len !=0);
     struct vNode*p = NULL;
     p = lista->node;
-    for (size_t i = 0; i < lista->len - index; i++)
-    {
+    for (size_t i = 0; i < lista->len - index-1; i++)
+    {   
         p= p->next;
+        
     }
     
     return p->id_vert;
@@ -80,7 +81,7 @@ u32 list_head(list lista){
     assert(lista->len>0);
     struct vNode*p = NULL;
     p = lista->node;
-    for (size_t i = 0; i < lista->len; i++)
+    for (size_t i = 0; i < lista->len-1; i++)
     {
         p = p->next;
     }

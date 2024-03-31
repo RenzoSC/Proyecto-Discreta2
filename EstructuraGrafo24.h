@@ -11,7 +11,6 @@ typedef struct Grafo_St {
     u32 num_lados;
     u32 delta;
     vertice * list_vertice;
-    u32 *list_vecinos;
 } GrafoSt;
 
 #endif

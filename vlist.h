@@ -28,6 +28,7 @@ u32 list_index(list lista, u32 index);
 
 u32 list_tail(list lista);
 
+u32 list_head(list lista);
 /*DESTROY: */
 
 list destroy(list l);
