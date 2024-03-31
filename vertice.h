@@ -9,7 +9,6 @@ typedef unsigned int u32;
 struct vertice_st{
     u32 id;
     color col;
-    u32 grado;
     struct list_st * vecinos;
 };
 

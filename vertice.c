@@ -63,7 +63,6 @@ void pop_vecino(vertice v){
 vertice destroy_vertice(vertice v){
     assert(v!=NULL);
     v->col=0;
-    v->grado=0;
     v->id=0;
     v->vecinos= destroy(v->vecinos);
     free(v);
