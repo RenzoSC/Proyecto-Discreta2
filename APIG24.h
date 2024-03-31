@@ -29,9 +29,9 @@ u32 Delta(Grafo G);
 
 // Extraer informacion de los vertices
 
-u32 grado_v(u32 grado, Grafo g);
+u32 grado_v(u32 i, Grafo g);
 
-u32 color_v(color col, Grafo g);
+u32 color_v(color i, Grafo g);
 
 u32 vecino_v(u32 j, u32 i, Grafo g);
 
