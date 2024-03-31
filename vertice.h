@@ -1,7 +1,6 @@
 #ifndef _VERTICE_H
 #define _VERTICE_H
 
-#include "vlist.h"
 
 typedef unsigned int color;
 typedef unsigned int u32;
@@ -9,7 +8,9 @@ typedef unsigned int u32;
 struct vertice_st{
     u32 id;
     color col;
-    struct list_st * vecinos;
+    u32 * vecinos;
+    u32 last_max;
+    u32 grado;
 };
 
 typedef struct vertice_st * vertice;
@@ -40,6 +41,7 @@ void add_grado(vertice v);
 void add_vecino(vertice v, u32 vec);
 
 void pop_vecino(vertice v);
+
 
 /*DESTRUCTOR*/
 vertice destroy_vertice(vertice v);
