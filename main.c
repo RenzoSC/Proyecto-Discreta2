@@ -5,36 +5,36 @@ int main()
 {
     Grafo g= construir_grafo();
 
-    // for(unsigned int i=0u; i < NumeroDeVertices(g); i++){
-    //     printf("Vertice:%u\n", g->list_vertice[i]->id);
-    //     printf("Color:%u\n", color_v(i,g));
-    //     printf("Grado:%u\n",grado_v(i,g));
-    // }
+    for(unsigned int i=0u; i < NumeroDeVertices(g); i++){
+        printf("Vertice:%u\n", g->list_vertice[i]->id);
+        printf("Color:%u\n", color_v(i,g));
+        printf("Grado:%u\n",grado_v(i,g));
+    }
 
-    // printf("numero de lados: %u\n", NumeroDeLados(g));
+    printf("numero de lados: %u\n", NumeroDeLados(g));
 
-    // printf("numero de vertices: %u\n", NumeroDeVertices(g));
+    printf("numero de vertices: %u\n", NumeroDeVertices(g));
 
-    // printf("Delta: %u\n", Delta(g));
+    printf("Delta: %u\n", Delta(g));
 
-    // printf("El vertice 6 es vecino de %u\n", vecino_v(0,6,g));
-    // printf("El vertice 6 es vecino de %u\n", vecino_v(1,6,g));
-    // printf("El vertice 6 es vecino de %u\n", vecino_v(2,6,g));
+    printf("El vertice 6 es vecino de %u\n", vecino_v(0,6,g));
+    printf("El vertice 6 es vecino de %u\n", vecino_v(1,6,g));
+    printf("El vertice 6 es vecino de %u\n", vecino_v(2,6,g));
     
-    // color * col = malloc(sizeof(color)*g->num_vertices);
-    // extraer_color_v(g, col);
-    // for (size_t i = 0; i < g->num_vertices; i++)
-    // {
-    //     printf("color: %u\n", col[i]);
-    //     col[i] = i;
-    // }
+    color * col = malloc(sizeof(color)*g->num_vertices);
+    extraer_color_v(g, col);
+    for (size_t i = 0; i < g->num_vertices; i++)
+    {
+        printf("color: %u\n", col[i]);
+        col[i] = i;
+    }
 
-    // importar_colores(col,g);
-    // for (size_t i = 0; i < g->num_vertices; i++)
-    // {
-    //     printf("color: %u\n", g->list_vertice[i]->col);
-    // }
-    // free(col);
+    importar_colores(col,g);
+    for (size_t i = 0; i < g->num_vertices; i++)
+    {
+        printf("color: %u\n", g->list_vertice[i]->col);
+    }
+    free(col);
     destruir_grafo(g);
     return 0;
 }
